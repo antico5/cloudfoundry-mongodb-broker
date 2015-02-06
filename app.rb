@@ -19,5 +19,20 @@ class MongoBroker < Grape::API
     YAML.load_file File.join(Dir.pwd, "config", "catalog.yml")
   end
 
+  resource '/service_instances' do
+    route_param :service_id do
+      put do
+        "Creating service instance #{ params[:service_id] }"
+      end
+      resource '/service_bindings' do
+        route_param :binding_id do
+          put do
+            "Creating binding with service id: #{ params[:service_id] }, binding id: #{ params[:binding_id] }"
+          end
+        end
+      end
+    end
+  end
+
 end
 
