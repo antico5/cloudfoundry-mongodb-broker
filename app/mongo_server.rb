@@ -1,5 +1,6 @@
+require 'securerandom'
 require 'mongo'
-require 'pry'
+require 'credentials'
 
 class MongoServer
   attr_accessor :host, :port, :user, :pass
@@ -11,12 +12,21 @@ class MongoServer
   end
 
   def create_user name
-    client.db(name).eval("db.createUser({})")
+    credentials = Credentials.new user: name, pass: random_pass,
+                                  host: host, port: port, db: name
+    client.db(name).add_user(name, credentials.pass, false, roles: [ "readWrite" ])
+    credentials.to_h
   end
 
   private
 
+  def random_pass
+    SecureRandom.hex 20
+  end
+
   def client
-    @client ||= Mongo::MongoClient.new host, port
+    @client ||= Mongo::MongoClient.new(host, port).tap do |client|
+      client.db("admin").authenticate(user, pass)
+    end
   end
 end

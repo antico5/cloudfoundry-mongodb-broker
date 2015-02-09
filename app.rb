@@ -32,7 +32,6 @@ class MongoBroker < Grape::API
         route_param :binding_id do
           put do
             server.create_user params[:binding_id]
-            {}
           end
         end
       end
