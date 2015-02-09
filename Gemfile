@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'grape'
-gem 'yaml'
+gem 'mongo'
 
 group :development, :test do
   gem 'pry'
