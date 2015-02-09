@@ -1,18 +1,22 @@
 require 'grape'
 require 'yaml'
+require 'mongo_server'
 
 class MongoBroker < Grape::API
   version 'v2', using: :path
   format :json
 
   helpers do
-    def config
-      @config ||= YAML.load_file File.join(Dir.pwd, "config", "config.yml")
+    def server
+      MongoServer.new host: ENV["MONGO_HOST"],
+                      port: ENV["MONGO_PORT"],
+                      user: ENV["MONGO_USER"],
+                      pass: ENV["MONGO_PASS"]
     end
   end
 
   http_basic do |username, password|
-    [username, password] == [ config["basic_user"], config["basic_pwd"] ]
+    [username, password] == [ ENV["BASIC_USER"], ENV["BASIC_PASS"] ]
   end
 
   get '/catalog' do
@@ -22,12 +26,13 @@ class MongoBroker < Grape::API
   resource '/service_instances' do
     route_param :service_id do
       put do
-        "Creating service instance #{ params[:service_id] }"
+        {}
       end
       resource '/service_bindings' do
         route_param :binding_id do
           put do
-            "Creating binding with service id: #{ params[:service_id] }, binding id: #{ params[:binding_id] }"
+            server.create_user params[:binding_id]
+            {}
           end
         end
       end
