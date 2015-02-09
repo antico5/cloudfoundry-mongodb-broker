@@ -31,7 +31,13 @@ class MongoBroker < Grape::API
       resource '/service_bindings' do
         route_param :binding_id do
           put do
-            server.create_user params[:binding_id]
+            begin
+              status 201
+              server.create_user params[:binding_id]
+            rescue ExistingUser
+              status 200
+              {}
+            end
           end
         end
       end
