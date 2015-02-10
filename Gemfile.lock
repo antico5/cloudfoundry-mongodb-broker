@@ -50,6 +50,8 @@ GEM
       rack (>= 0.4)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
+    rack-test (0.6.2)
+      rack (>= 1.0)
     require_all (1.3.2)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
@@ -81,5 +83,6 @@ DEPENDENCIES
   grape
   mongo
   pry
+  rack-test
   require_all
   rspec
