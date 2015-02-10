@@ -1,6 +1,7 @@
 require 'grape'
 require 'yaml'
-require 'mongo_server'
+
+require './config/application'
 
 class MongoBroker < Grape::API
   version 'v2', using: :path
@@ -43,6 +44,4 @@ class MongoBroker < Grape::API
       end
     end
   end
-
 end
-
