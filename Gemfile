@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'grape'
 gem 'mongo'
+gem 'require_all'
 
 group :development, :test do
   gem 'pry'
