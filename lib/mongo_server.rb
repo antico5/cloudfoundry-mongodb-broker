@@ -1,6 +1,5 @@
 require 'securerandom'
 require 'mongo'
-require 'credentials'
 
 class ExistingUser < StandardError ; end
 
