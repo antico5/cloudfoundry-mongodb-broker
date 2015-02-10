@@ -2,9 +2,7 @@ require 'require_all'
 
 $LOAD_PATH.unshift File.expand_path "..", __FILE__
 
-case ENV['RACK_ENV']
-
-when 'development'
+if %w{ development test }.include? ENV['RACK_ENV']
   require 'pry'
   require 'dotenv'
 
