@@ -7,3 +7,6 @@ services:
       - id: 1
         name: full
         description: Access to whole database
+      - id: 2
+        name: basic
+        description: Access to basic usage
