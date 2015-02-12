@@ -7,6 +7,10 @@ class MongoBroker < Grape::API
   version 'v2', using: :path
   format :json
 
+  rescue_from ExistingUser do |e|
+    {}
+  end
+
   helpers do
     def server
       MongoServer.new host: ENV["MONGO_HOST"],
@@ -30,11 +34,11 @@ class MongoBroker < Grape::API
         {}
       end
       resource '/service_bindings' do
-        route_param :binding_id do
+        route_param :binding_id do |binding_id|
           put do
             begin
               status 201
-              server.create_user params[:binding_id]
+              server.create_user binding_id
             rescue ExistingUser
               status 200
               {}
