@@ -1,7 +1,5 @@
 require 'require_all'
 
-$LOAD_PATH.unshift File.expand_path "..", __FILE__
-
 if %w{ development test }.include? ENV['RACK_ENV']
   require 'pry'
   require 'dotenv'
@@ -10,4 +8,5 @@ if %w{ development test }.include? ENV['RACK_ENV']
 end
 
 require_all 'lib'
+
 
