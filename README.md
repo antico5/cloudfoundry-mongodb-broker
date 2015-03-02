@@ -5,9 +5,6 @@
 * Uses RSpec for testing.
 * See .env file for required environment variables.
 
-### Endpoints
-    GET /v2/catalog
-
 #### How to test
     bundle exec rspec
 
